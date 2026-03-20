@@ -1,44 +1,60 @@
 # Hikari - OnyxCord Modified Version
 
-This is a modified version of [Hikari](https://github.com/hikari-py/hikari) that preserves unknown component types in modal interactions, enabling support for Discord's new modal components (types 18-23) through OnyxCord.
+> **Fork modificado por Gustavo S.**
+> 
+> Esta é uma versão modificada do [Hikari](https://github.com/hikari-py/hikari) que preserva tipos de componentes desconhecidos em interações de modais, permitindo suporte aos novos componentes de modais do Discord (tipos 18-23) através do OnyxCord.
 
-## Modifications
+## Modificações
 
 ### `hikari/impl/entity_factory.py`
 
-Modified the `deserialize_component` method to preserve unknown component types instead of logging and discarding them:
+Modificado o método `deserialize_component` para preservar tipos de componentes desconhecidos ao invés de registrar e descartá-los:
 
 ```python
-# BEFORE (original Hikari)
+# ANTES (Hikari original)
 else:
     _LOGGER.debug("Unknown component type %s", component_type)
     return None
 
-# AFTER (OnyxCord modified)
+# DEPOIS (OnyxCord modificado)
 else:
     # Preserve unknown components for OnyxCord
     return component_payload
 ```
 
-This allows OnyxCord to handle new Discord component types that aren't yet natively supported by Hikari.
+Esta modificação permite que o OnyxCord manipule novos tipos de componentes do Discord que ainda não são nativamente suportados pelo Hikari, incluindo:
+- Label (tipo 18)
+- Separator (tipo 19)
+- TextArea (tipo 20)
+- MediaGallery (tipo 21)
+- Checkbox (tipo 22)
+- RadioGroup (tipo 23)
 
-## Installation
+## Instalação
 
-### From Git (Recommended for OnyxCord)
+### A partir do Git (Recomendado para OnyxCord)
 
 ```bash
-pip install git+https://github.com/YOUR_USERNAME/hikari-onyxcord.git
+pip install git+https://github.com/SEU_USUARIO/hikari-onyxcord.git
 ```
 
-### Local Development
+### Desenvolvimento Local
 
 ```bash
 pip install -e .
 ```
 
-## Usage
+### Versão Original
 
-Use this modified Hikari version together with OnyxCord:
+Para instalar a versão original não modificada:
+
+```bash
+pip install -U hikari
+```
+
+## Uso
+
+Use esta versão modificada do Hikari em conjunto com o OnyxCord:
 
 ```python
 from onyxcord.hikari import OnyxBot
@@ -50,12 +66,18 @@ install_modal_handler(bot)
 bot.run()
 ```
 
-## Original Hikari
+## Hikari Original
 
-This is based on Hikari v2.5.0. For the original, unmodified version, visit:
+Este fork é baseado no Hikari v2.5.0. Para a versão original não modificada, visite:
 - GitHub: https://github.com/hikari-py/hikari
-- Documentation: https://docs.hikari-py.dev/
+- Documentação: https://docs.hikari-py.dev/
 
-## License
+## Licença
 
-Same as original Hikari - MIT License
+Mesma licença do Hikari original - MIT License
+
+---
+
+**Modificado por:** Gustavo S.  
+**Versão Base:** Hikari v2.5.0  
+**Propósito:** Suporte aos novos componentes de modais do Discord via OnyxCord
