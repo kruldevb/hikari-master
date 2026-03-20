@@ -35,7 +35,7 @@ Esta modificação permite que o OnyxCord manipule novos tipos de componentes do
 ### A partir do Git (Recomendado para OnyxCord)
 
 ```bash
-pip install git+https://github.com/SEU_USUARIO/hikari-onyxcord.git
+pip install git+https://github.com/kruldevb/hikari-master.git
 ```
 
 ### Desenvolvimento Local
