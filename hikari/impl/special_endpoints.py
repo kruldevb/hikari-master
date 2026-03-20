@@ -1734,6 +1734,13 @@ def _build_emoji(
         if isinstance(emoji, (int, emojis.CustomEmoji)):
             return str(int(emoji)), undefined.UNDEFINED
 
+        # Parse custom emoji string format: <:name:id> or <a:name:id>
+        if isinstance(emoji, str):
+            import re
+            match = re.match(r'<a?:([^:]+):(\d+)>', emoji)
+            if match:
+                return match.group(2), undefined.UNDEFINED  # Return ID for custom emoji
+        
         return undefined.UNDEFINED, str(emoji)
 
     return undefined.UNDEFINED, undefined.UNDEFINED
