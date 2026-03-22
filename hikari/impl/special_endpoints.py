@@ -1762,12 +1762,7 @@ class _ButtonBuilder(special_endpoints.ButtonBuilder, abc.ABC):
     _is_disabled: bool = attrs.field(alias="is_disabled", default=False)
 
     def __attrs_post_init__(self) -> None:
-        # Auto-parse custom emoji strings like <:name:id> or <a:name:id> before processing
-        if self._emoji is not undefined.UNDEFINED and isinstance(self._emoji, str) and self._emoji.startswith("<"):
-            try:
-                self._emoji = emojis.CustomEmoji.parse(self._emoji)
-            except:
-                pass  # If parsing fails, keep original string and let _build_emoji handle it
+        # Parse emoji using _build_emoji which handles custom emoji strings
         self._emoji_id, self._emoji_name = _build_emoji(self._emoji)
 
     @property
@@ -1939,12 +1934,7 @@ class SelectOptionBuilder(special_endpoints.SelectOptionBuilder):
     _is_default: bool = attrs.field(alias="is_default", default=False, kw_only=True)
 
     def __attrs_post_init__(self) -> None:
-        # Auto-parse custom emoji strings like <:name:id> or <a:name:id> before processing
-        if self._emoji is not undefined.UNDEFINED and isinstance(self._emoji, str) and self._emoji.startswith("<"):
-            try:
-                self._emoji = emojis.CustomEmoji.parse(self._emoji)
-            except:
-                pass  # If parsing fails, keep original string and let _build_emoji handle it
+        # Parse emoji using _build_emoji which handles custom emoji strings
         self._emoji_id, self._emoji_name = _build_emoji(self._emoji)
 
     @property
